@@ -17,11 +17,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-    <!-- 제이쿼리 사용을 위한 코드 -->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
-
 <?php wp_head(); ?>
 </head>
 
@@ -51,7 +46,7 @@
                 'theme_location'    => 'primary',
                 'container'       => 'div',
                 'container_id'    => 'main-nav',
-                'container_class' => 'collapse navbar-collapse',
+                'container_class' => 'collapse navbar-collapse justify-content-end',
                 'menu_id'         => false,
                 'menu_class'      => 'navbar-nav',
                 'depth'           => 3,
@@ -63,7 +58,7 @@
             </nav>
         </div>
 	</header><!-- #masthead -->
-    <!-- <?php if(is_front_page() && !get_theme_mod( 'header_banner_visibility' )): ?>
+    <?php if(is_front_page() && !get_theme_mod( 'header_banner_visibility' )): ?>
         <div id="page-sub-header" <?php if(has_header_image()) { ?>style="background-image: url('<?php header_image(); ?>');" <?php } ?>>
             <div class="container">
                 <h1>
@@ -87,7 +82,7 @@
                 <a href="#content" class="page-scroller"><i class="fa fa-fw fa-angle-down"></i></a>
             </div>
         </div>
-    <?php endif; ?> -->
+    <?php endif; ?>
 	<div id="content" class="site-content">
 		<div class="container">
 			<div class="row">
