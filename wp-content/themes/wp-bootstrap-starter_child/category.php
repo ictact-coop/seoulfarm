@@ -17,8 +17,7 @@ get_header(); ?>
 			<div class="category_page">
 				<div class="category_boerd_place">
 
-				 <?php $category = get_the_category(); // 현재 카테고리를 가져옴
-				// var_dump($category);
+				<?php $category = get_the_category(); // 현재 카테고리를 가져옴
 				$category_id = $category[0]->cat_ID; // 카테고리 ID (숫자)
 				$category_name = $category[0]->name; // 카테고리 이름
 				$category_count = $category[0]->category_count;
@@ -51,14 +50,13 @@ get_header(); ?>
 							</div>
 						</div>
 					</div>
-				<?php } // End of the loop.
-				?>
+				<?php } // End of the loop. ?>
 					<!-- 쪽번호 -->
 					<div class="pagemove">
 						<p><<</p>
-						<?php for ($i=1; $i<= 5 ; $i++) {?>
-							<p><?php echo "$i"; ?></p>
-					<?php	} ?>
+						<?php for ($i = 1; $i <= 5 ; $i++) { ?>
+							<p><?=$i?></p>
+						<?php	} ?>
 						<p>>></p>
 					</div>
 				</div>

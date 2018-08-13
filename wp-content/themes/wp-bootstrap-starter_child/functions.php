@@ -45,7 +45,6 @@ function setPostViews($postID) {
     }
 }
 
-
 // Add it to a column in WP-Admin
 add_filter('manage_posts_columns', 'posts_column_views');
 add_action('manage_posts_custom_column', 'posts_custom_column_views',5,2);

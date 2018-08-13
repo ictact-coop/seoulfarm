@@ -14,7 +14,7 @@ get_header(); ?>
 	          <div class="newspaper_PR_mainbanner_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
 	          </div>
 						<div class="newspaper_PR_mainbanner_title">
-	            4월 11일 "도시농업의 날" 기념식 열려 두번째 줄
+	            4월 11일 "도시농업의 날" 기념식 열려 : 두번째 줄
 	          </div>
 						<div class="newspaper_PR_mainbanner_subtitle">
 							부제 자리에 들어가는 텍스트
@@ -77,11 +77,17 @@ get_header(); ?>
 								서울시 소식
 							</div>
 							<div class="boder_element">
-								<p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
+								<?php
+								$category_id = 7;
+								$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 5));
+								foreach($posts_seoul as $post) { ?>
+									<p><a href="<?php the_permalink();?>"><?php the_title(); ?></a></p>
+								<?php } ?>
+								<!-- <p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
 								<p>알 수없는 프린터가 유형의 조리실을</p>
 								<p>이래로 업계 표준 더미 텍스트였습니다</p>
 								<p>표본을 만들기 위해 뒤섞어 놓았던 1500 년대</p>
-								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p>
+								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p> -->
 							</div>
 						</div>
 						<div class="board2">
@@ -89,11 +95,17 @@ get_header(); ?>
 								자치구 소식
 							</div>
 							<div class="boder_element">
-								<p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
+								<?php
+								$category_id = 8;
+								$posts_other = get_posts(array('category' => $category_id, 'posts_per_page' => 5));
+								foreach($posts_other as $post) { ?>
+									<p><a href="<?php the_permalink();?>"><?php the_title(); ?></a></p>
+								<?php } ?>
+								<!-- <p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
 								<p>알 수없는 프린터가 유형의 조리실을</p>
 								<p>이래로 업계 표준 더미 텍스트였습니다</p>
 								<p>표본을 만들기 위해 뒤섞어 놓았던 1500 년대</p>
-								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p>
+								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p> -->
 							</div>
 						</div>
 					</div>
@@ -116,29 +128,44 @@ get_header(); ?>
 						<div class="sidebar_name">
 							도시농업의 멋
 						</div>
-						<div class="sidebar_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
+						<?php
+						$category_id = 4; // 농사정보
+						$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 1));
+						foreach($posts_seoul as $post) {
+							// var_dump($post);?>
+							<div class="sidebar_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
+							</div>
+							<div class="sidebar_title">
+								<!-- 도시농업의 멋 두줄 씩 나오게 되면 이렇게 보입니다. -->
+								<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
+							</div>
+							<div class="sidebar_text">
+								<?=$post->post_content?>
+								<!-- 하되 거선의 그것을 열매를 꽃이 황금시대다. 꽃이 무엇을 만천하의 가장 무언가 뭐지 -->
+							</div>
+							<div class="sidebar_writer">
+								-<?=get_the_author_meta('display_name', $post->post_author)?>
+								<!-- -최승혁 -->
+							</div>
+						<?php } ?>
 
-						</div>
-						<div class="sidebar_title">
-							도시농업의 멋 두줄 씩 나오게 되면 이렇게 보입니다.
-						</div>
-						<div class="sidebar_text">
-							하되 거선의 그것을 열매를 꽃이 황금시대다. 꽃이 무엇을 만천하의 가장 무언가 뭐지
-						</div>
-						<div class="sidebar_writer">
-							-최승혁
-						</div>
 					</div>
 					<div class="PopularNews">
 						<div class="PopularNews_title">
 							인기 소식
 						</div>
+						<?php
+						$posts_popular = get_posts(array('meta_key' => 'post_views_count', 'orderby' => 'meta_value', 'posts_per_page' => 5));
+						?>
 						<div class="PopularNews_boder">
-								<p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
+							<?php foreach($posts_popular as $post) { ?>
+								<p><a href="<?php the_permalink();?>"><?php the_title(); ?></a></p>
+							<?php } ?>
+								<!-- <p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
 								<p>알 수없는 프린터가 유형의 조리실을</p>
 								<p>이래로 업계 표준 더미 텍스트였습니다</p>
 								<p>표본을 만들기 위해 뒤섞어 놓았던 1500 년대</p>
-								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p>
+								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p> -->
 						</div>
 					</div>
 					<div class="imgbanner1">

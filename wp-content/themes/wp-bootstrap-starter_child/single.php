@@ -7,7 +7,12 @@
  * @package WP_Bootstrap_Starter
  */
 
-get_header(); ?>
+get_header();
+$post = get_post();
+$post_categories = wp_get_post_categories( $post->ID );
+
+// var_dump($post_categories);
+?>
 
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -16,26 +21,26 @@ get_header(); ?>
 					<!-- 하드코딩됨  -->
 					<div class="post_upper">
 						<div class="post_category">
-							[서울소식]
+							<?php foreach($post_categories as $c) {
+					    	$cat = get_category( $c );
+								echo '['.$cat->name.']';
+							} ?>
 						</div>
 						<div class="post_title">
 							<div class="post_title_main">
-								<h3>서울 도시 농업 박람회 성황리 폐막</h3>
+								<h3><?=$post->post_title?></h3>
 							</div>
 							<div class="post_title_sub">
 								<h4>서울 농부들의 시민축제 작물 시들어 아쉬움</h4>
 							</div>
 							<div class="post_info">
-								<p>2018 5월 21일 | 최승혁기자</p>
+								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> | <?=get_the_author_meta('display_name', $post->post_author)?> 기자</p>
 							</div>
 						</div>
 					</div>
 					<div class="post_contents">
-						<p>기관과 쓸쓸한 피고, 있는 이것이다. 부패를 찬미를 그들의 옷을 인간이 말이다. 위하여, 가는 더운지라 교향악이다. 우리의 붙잡아 따뜻한 보이는 꽃이 못할 부패를 이것이다. 인생에 것은 따뜻한 아름다우냐? </p>
-						<img src="http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg" alt="">
-						<p>기관과 쓸쓸한 피고, 있는 이것이다. 부패를 찬미를 그들의 옷을 인간이 말이다. 위하여, 가는 더운지라 교향악이다. 우리의 붙잡아 따뜻한 보이는 꽃이 못할 부패를 이것이다. 인생에 것은 따뜻한 아름다우냐? </p>
-						<img src="http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg" alt="">
-						<p>최승덕기자 www@naver.com <br>저작권자 서울도시농업 e소식
+						<p><?=nl2br($post->post_content)?></p>
+						<p><?=get_the_author_meta('display_name', $post->post_author)?> 기자 www@naver.com <br>저작권자 서울도시농업 e소식
 						</p>
 					</div>
 					<div class="post_comment">
@@ -178,4 +183,8 @@ get_header(); ?>
 
 <?php
 /* get_sidebar(); */
+
+// 조회수 증가
+setPostViews(get_the_ID());
+
 get_footer();
