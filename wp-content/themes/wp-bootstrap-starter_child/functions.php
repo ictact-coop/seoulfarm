@@ -58,3 +58,27 @@ function posts_custom_column_views($column_name, $id) {
         echo getPostViews(get_the_ID());
     }
 }
+
+function modify_comment_form_fields($fields) {
+    /*$fields['author'] = '<p class="comment-form-author"><div class="comment_form_user">
+      <p>작성자</p>' . '<input id="author" name="author" type="text" value="' .
+                esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' />'.
+                ( $req ? '<span class="required">*</span>' : '' )  .
+                '</p></div>';*/
+    $fields['author'] = '';
+    /*$fields['email'] = '<p class="comment-form-email">' . '<input id="email" placeholder="your-real-email@example.com" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
+                '" size="30"' . $aria_req . ' />'  .
+                '<label for="email">' . __( 'Your Email' ) . '</label> ' .
+                ( $req ? '<span class="required">*</span>' : '' )
+                 .
+                '</p>';*/
+    $fields['email'] = '';
+    /*$fields['url'] = '<p class="comment-form-url">' .
+             '<input id="url" name="url" placeholder="http://your-site-name.com" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" /> ' .
+            '<label for="url">' . __( 'Website', 'domainreference' ) . '</label>' .
+               '</p>';*/
+    $fields['url'] = '';
+
+    return $fields;
+}
+add_filter('comment_form_default_fields','modify_comment_form_fields');
