@@ -59,6 +59,32 @@ function posts_custom_column_views($column_name, $id) {
     }
 }
 
+// 헤드라인 노출 여부 표시 위한 함수
+function getHeadline($postID) {
+    $count_key = 'post_headline';
+    $headlined = get_post_meta($postID, $count_key, true);
+    if($headlined == '') {
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return "0";
+    }
+    return $headlined;
+}
+
+function posts_column_headline($defaults) {
+  $defaults['post_headline'] = '헤드라인';
+  return $defaults;
+}
+
+function posts_custom_column_headline($column_name, $id) {
+  if($column_name === 'post_headline'){
+    echo getHeadline(get_the_ID());
+  }
+}
+// Add it to a column in WP-Admin
+add_filter('manage_posts_columns', 'posts_column_headline');
+add_action('manage_posts_custom_column', 'posts_custom_column_headline',5,2);
+
 function modify_comment_form_fields($fields) {
     /*$fields['author'] = '<p class="comment-form-author"><div class="comment_form_user">
       <p>작성자</p>' . '<input id="author" name="author" type="text" value="' .

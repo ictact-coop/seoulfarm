@@ -47,7 +47,7 @@ $post_categories = wp_get_post_categories( $post->ID );
 					<?php // 덧글 부분
 					// If comments are open or we have at least one comment, load up the comment template.
 					if ( comments_open() || get_comments_number() ) :
-						comments_template();
+						//comments_template();
 					endif;
 					?>
 			   </div>

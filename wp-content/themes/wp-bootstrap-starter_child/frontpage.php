@@ -2,67 +2,63 @@
 /*
 Template Name: 대문 페이지
 */
-
 get_header(); ?>
 
 <div class="wrap">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			<div class="newspaper_PR_mainbanner">
-	      <div class="newspaper_PR_mainbanner_big">
-	        <div class="newspaper_PR_mainbanner_element">
-	          <div class="newspaper_PR_mainbanner_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
-	          </div>
-						<div class="newspaper_PR_mainbanner_title">
-	            4월 11일 "도시농업의 날" 기념식 열려 : 두번째 줄
-	          </div>
-						<div class="newspaper_PR_mainbanner_subtitle">
-							부제 자리에 들어가는 텍스트
+				<?php
+				$posts_headline = get_posts(array('meta_key' => 'post_headline', 'orderby' => 'meta_value', 'posts_per_page' => 3));
+				$headline_number = 1;
+				foreach($posts_headline as $post) {
+					if(has_post_thumbnail()) {
+						$image_id = get_post_thumbnail_id();
+						$image_url = wp_get_attachment_image_src($image_id, $size);
+						$post_banner_img = $image_url[0];
+					} else {
+						$post_banner_img = 'http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg';
+					}
+
+					// var_dump($post);
+					if($headline_number == 1) { ?>
+						<div class="newspaper_PR_mainbanner_big">
+							<div class="newspaper_PR_mainbanner_element">
+			          <div class="newspaper_PR_mainbanner_img" style="background-image: url(<?=$post_banner_img?>);">
+			          </div>
+							<?php
+					} else { // 헤드라인 2~3번째
+						if($headline_number == 2) { ?>
+							<div class="newspaper_PR_mainbanner_small"><?php
+						} ?>
+			        <div class="newspaper_PR_mainbanner_element">
+			          <div class="newspaper_PR_mainbanner_summary">
+			            <div class="newspaper_PR_mainbanner_img" style="background-image: url(<?=$post_banner_img?>);">
+			            </div>
+									<div class="newspaper_PR_mainbanner_sort">
+					<?php } ?>
+									<div class="newspaper_PR_mainbanner_title">
+										<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
+									</div>
+									<div class="newspaper_PR_mainbanner_subtitle">
+										<?=get_post_meta($post->ID, 'subtitle', true)?>
+									</div>
+									<div class="newspaper_PR_mainbanner_text">
+										<?=nl2br(strip_tags($post->post_content))?>
+									</div>
+								<?php if($headline_number > 1) { ?>
+								</div>
+								<?php if($headline_number == 3) { // end of small?>
+								</div>
+								<?php
+								}
+							} ?>
 						</div>
-	          <div class="newspaper_PR_mainbanner_text">
-	            아름답고 고동을 불러 남는 속잎나고
-	            , 사랑의 못할 소담스러운 그들은 보라. 그들은 오아이스도 가치를 발휘하기 그들은 이상의 방황하였으며, 피에 이상을 보라. 그것은 않는 것은 이것을 밝은 과실이 피는 만물은 방황하였으며, 약동하다. 방지하는 두손을 사랑의 우리는 동산에는 품고 할지라도 이것이다. 스며들어 그들은 인생을 이상, 커다란 풍부하게 있을 별과 유소년에게서 있으랴? 청춘을 하여도 낙원을 실현에 불러 꾸며 청춘의 희망의 힘있다. 이는 대고, 안고, 속에 무엇을 피는 곳이
-	          </div>
-	        </div>
-	      </div>
-	      <div class="newspaper_PR_mainbanner_small">
-	        <div class="newspaper_PR_mainbanner_element">
-	          <div class="newspaper_PR_mainbanner_summary">
-	            <div class="newspaper_PR_mainbanner_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
-	            </div>
-							<div class="newspaper_PR_mainbanner_sort">
-								<div class="newspaper_PR_mainbanner_title">
-									제목입니다. 두 줄도 문제 없습니다.
-								</div>
-								<div class="newspaper_PR_mainbanner_subtitle">
-									부제 자리에 들어가는 텍스트
-								</div>
-								<div class="newspaper_PR_mainbanner_text">
-									아름답고 고동을 불러 남는 속잎나고
-									, 사랑의 못할 소담스러운 그들은 보라. 그들은 오아이스도 가치를 발휘하기 그들은 이상의 방황하였으며, 피에 이상을 보라. 그것은 않는 것은 이것을 밝은 과실이 피는 만물은 방황하였으며, 약동하다. 방지하는 두손을 사랑의 우리는 동산에는 품고 할지라도 이것이다. 스며들어 그들은 인생을 이상, 커다란 풍부하게 있을 별과 유소년에게서 있으랴? 청춘을 하여도 낙원을 실현에 불러 꾸며 청춘의 희망의 힘있다. 이는 대고, 안고, 속에 무엇을 피는 곳이
-								</div>
-							</div>
-	          </div>
-	        </div>
-	        <div class="newspaper_PR_mainbanner_element">
-	          <div class="newspaper_PR_mainbanner_summary">
-	            <div class="newspaper_PR_mainbanner_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
-	            </div>
-							<div class="newspaper_PR_mainbanner_sort">
-								<div class="newspaper_PR_mainbanner_title">
-									제목입니다. 두 줄 문제없습니다.
-								</div>
-		            <div class="newspaper_PR_mainbanner_subtitle">
-		              부제 자리에 들어가는 텍스트
-		            </div>
-								<div class="newspaper_PR_mainbanner_text">
-									아름답고 고동을 불러 남는 속잎나고
-									, 사랑의 못할 소담스러운 그들은 보라. 그들은 오아이스도 가치를 발휘하기 그들은 이상의 방황하였으며, 피에 이상을 보라. 그것은 않는 것은 이것을 밝은 과실이 피는 만물은 방황하였으며, 약동하다. 방지하는 두손을 사랑의 우리는 동산에는 품고 할지라도 이것이다. 스며들어 그들은 인생을 이상, 커다란 풍부하게 있을 별과 유소년에게서 있으랴? 청춘을 하여도 낙원을 실현에 불러 꾸며 청춘의 희망의 힘있다. 이는 대고, 안고, 속에 무엇을 피는 곳이
-								</div>
-							</div>
-	          </div>
-	        </div>
-	      </div>
+					</div>
+					<?php
+					$headline_number++;
+				}
+				?>
 	    </div>
 	<!-- 배너 종료 -->
 			<div class="middle_img_banner">
@@ -79,15 +75,17 @@ get_header(); ?>
 							<div class="boder_element">
 								<?php
 								$category_id = 7;
-								$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 5));
-								foreach($posts_seoul as $post) { ?>
-									<p><a href="<?php the_permalink();?>"><?php the_title(); ?></a></p>
+								$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 5)); ?>
+								<ul>
+								<?php foreach($posts_seoul as $post) { ?>
+									<li><a href="<?php the_permalink();?>"><?php the_title(); ?></a></li>
 								<?php } ?>
 								<!-- <p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
 								<p>알 수없는 프린터가 유형의 조리실을</p>
 								<p>이래로 업계 표준 더미 텍스트였습니다</p>
 								<p>표본을 만들기 위해 뒤섞어 놓았던 1500 년대</p>
 								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p> -->
+								</ul>
 							</div>
 						</div>
 						<div class="board2">
