@@ -108,3 +108,20 @@ function modify_comment_form_fields($fields) {
     return $fields;
 }
 add_filter('comment_form_default_fields','modify_comment_form_fields');
+
+function get_featured_image($post_id) {
+  if(has_post_thumbnail($post_id)) {
+    $image_id = get_post_thumbnail_id($post_id);
+    $image_url = wp_get_attachment_image_src($image_id, $size);
+    $post_banner_img = $image_url[0];
+  } else {
+    $post_banner_img = 'http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg';
+  }
+  return $post_banner_img;
+}
+
+function print_content($content = '') {
+  global $post;
+  if($content == '') $content = $post->post_content;
+  echo nl2br(strip_tags($content));
+}

@@ -10,15 +10,17 @@ get_header(); ?>
 			<div class="newspaper_PR_mainbanner">
 				<?php
 				$posts_headline = get_posts(array('meta_key' => 'post_headline', 'orderby' => 'meta_value', 'posts_per_page' => 3));
+				//$posts_headline = get_posts(array('meta_query' => array('key' => 'headline', 'value' => 1), 'posts_per_page' => 3));
 				$headline_number = 1;
 				foreach($posts_headline as $post) {
-					if(has_post_thumbnail()) {
+					/*if(has_post_thumbnail()) {
 						$image_id = get_post_thumbnail_id();
 						$image_url = wp_get_attachment_image_src($image_id, $size);
 						$post_banner_img = $image_url[0];
 					} else {
 						$post_banner_img = 'http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg';
-					}
+					}*/
+					$post_banner_img = get_featured_image($post->ID);
 
 					// var_dump($post);
 					if($headline_number == 1) { ?>
@@ -44,7 +46,7 @@ get_header(); ?>
 										<?=get_post_meta($post->ID, 'subtitle', true)?>
 									</div>
 									<div class="newspaper_PR_mainbanner_text">
-										<?=nl2br(strip_tags($post->post_content))?>
+										<?php print_content($post->post_content); ?>
 									</div>
 								<?php if($headline_number > 1) { ?>
 								</div>
@@ -109,7 +111,36 @@ get_header(); ?>
 					</div>
 					<div class="imgboder_col6">
 						<?php
-						for ($i=0; $i < 6; $i++) {
+						$posts_img1 = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 1, 'posts_per_page' => 3));
+						$posts_img2 = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 2, 'posts_per_page' => 3));
+
+						foreach($posts_img1 as $post) {
+							$post_banner_img = get_featured_image($post->ID);
+							// $post_banner_img2 = 'http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg'; ?>
+							<div class="imgboder_<?=$i?>">
+								<div class="imgboder_img" style="background-image: url(<?=$post_banner_img?>);">
+
+								</div>
+								<div class="imgboder_title">
+									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+								</div>
+							</div>
+						<?php } ?>
+
+						<?php foreach($posts_img2 as $post) {
+							$post_banner_img = get_featured_image($post->ID);
+							// $post_banner_img2 = 'http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg'; ?>
+							<div class="imgboder_<?=$i?>">
+
+								<div class="imgboder_img" style="background-image: url(<?=$post_banner_img?>);">
+
+								</div>
+								<div class="imgboder_title">
+									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+								</div>
+							</div>
+						<?php }
+						/*for ($i = 0; $i < 6; $i++) {
 							echo '<div class="imgboder_',$i,'">
 										<div class="imgboder_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
 
@@ -118,7 +149,7 @@ get_header(); ?>
 											텍스트였습니다. 5 세기뿐만 아니라 전자 조판으로 도약했으며, 본질적으로 변하지 않았습니다
 										</div>
 									</div>';
-						} ?>
+						}*/ ?>
 					</div>
 				</div>
 				<div class="sidebar_place">
@@ -130,15 +161,17 @@ get_header(); ?>
 						$category_id = 4; // 농사정보
 						$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 1));
 						foreach($posts_seoul as $post) {
+							$post_banner_img = get_featured_image($post->ID);
+
 							// var_dump($post);?>
-							<div class="sidebar_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
+							<div class="sidebar_img" style="background-image: url(<?=$post_banner_img?>);">
 							</div>
 							<div class="sidebar_title">
 								<!-- 도시농업의 멋 두줄 씩 나오게 되면 이렇게 보입니다. -->
 								<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
 							</div>
 							<div class="sidebar_text">
-								<?=$post->post_content?>
+								<?php print_content(); ?>
 								<!-- 하되 거선의 그것을 열매를 꽃이 황금시대다. 꽃이 무엇을 만천하의 가장 무언가 뭐지 -->
 							</div>
 							<div class="sidebar_writer">
@@ -149,39 +182,9 @@ get_header(); ?>
 
 					</div>
 					<div class="PopularNews">
-						<div class="PopularNews_title">
-							인기 소식
-						</div>
-						<?php
-						$posts_popular = get_posts(array('meta_key' => 'post_views_count', 'orderby' => 'meta_value', 'posts_per_page' => 5));
-						?>
-						<div class="PopularNews_boder">
-							<?php foreach($posts_popular as $post) { ?>
-								<p><a href="<?php the_permalink();?>"><?php the_title(); ?></a></p>
-							<?php } ?>
-								<!-- <p>형식 표본을 만들기 위해 뒤섞어 놓았던</p>
-								<p>알 수없는 프린터가 유형의 조리실을</p>
-								<p>이래로 업계 표준 더미 텍스트였습니다</p>
-								<p>표본을 만들기 위해 뒤섞어 놓았던 1500 년대</p>
-								<p><알 수없는 프린터가 유형의 조리실을 가져다가</p> -->
-						</div>
+						<?php get_template_part('hot'); ?>
 					</div>
-					<div class="imgbanner1">
-						<div class="imgbanner1_img" style="background-image: url(img/seoulcityagriculture.jpg);">
-
-						</div>
-						<div class="imgbanner1_text">
-							서울시<br>도시농업과
-						</div>
-					</div>
-					<div class="imgbanner2">
-						<div class="imgbanner2_img">
-
-						</div>
-						<div class="imgbanner2_text">
-							모두농링크
-						</div>
-					</div>
+					<?php get_template_part('imgbanner'); ?>
 				</div>
 			</div>
 		</main><!-- #main -->
