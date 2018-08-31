@@ -120,8 +120,9 @@ function get_featured_image($post_id) {
   return $post_banner_img;
 }
 
-function print_content($content = '') {
+function print_content($content = '', $cut = 0) {
   global $post;
   if($content == '') $content = $post->post_content;
+  if($cut > 0) $content = mb_strcut($content, 0, $cut);
   echo nl2br(strip_tags($content));
 }

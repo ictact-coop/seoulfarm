@@ -93,6 +93,12 @@
 				 myVar = setInterval(railTimer, 3000);
 			});
 
+		$('.imgboder_img, .newspaper_PR_mainbanner_img, .sidebar_img').on('click', function() {
+			var url = '';
+			url = $(this).attr('data-url');
+			location.href = url;
+		});
+
 	});
 </script>
 </body>

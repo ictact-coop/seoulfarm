@@ -10,8 +10,6 @@
 get_header();
 $post = get_post();
 $post_categories = wp_get_post_categories( $post->ID );
-
-// var_dump($post_categories);
 ?>
 
 	<section id="primary" class="content-area">
@@ -22,8 +20,8 @@ $post_categories = wp_get_post_categories( $post->ID );
 					<div class="post_upper">
 						<div class="post_category">
 							<?php foreach($post_categories as $c) {
-					    	$cat = get_category( $c );
-								echo '['.$cat->name.']';
+					    	$cat = get_category( $c )->name;
+								if($cat != 'Uncategorized') echo '['.$cat.']';
 							} ?>
 						</div>
 						<div class="post_title">
@@ -34,7 +32,10 @@ $post_categories = wp_get_post_categories( $post->ID );
 								<h4>서울 농부들의 시민축제 작물 시들어 아쉬움</h4>
 							</div>
 							<div class="post_info">
-								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> | <?=get_the_author_meta('display_name', $post->post_author)?> 기자</p>
+								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> |
+									<?php $author_name = get_post_meta($post->ID, 'writer_name', true);
+									if(!isset($author_name)) $author_name = get_the_author_meta('display_name', $post->post_author);?>
+									<?=$author_name?> 기자</p>
 							</div>
 						</div>
 					</div>
