@@ -33,7 +33,7 @@ get_header(); ?>
 				foreach($posts as $post) {
 					$post_banner_img = get_featured_image($post->ID); ?>
 					<div class="category_boerd">
-						<div class="category_boerd_img" style="background-image: url(<?=$post_banner_img?>);">
+						<div class="category_boerd_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
 
 						</div>
 						<div class="category_boerd_contents">
@@ -41,10 +41,10 @@ get_header(); ?>
 								<a href="<?php the_permalink();?>"><?=$post->post_title?></a>
 							</div>
 							<div class="category_boerd_text">
-								<p><?php print_content($post->post_content); ?></p>
+								<p><a href="<?php the_permalink();?>"><?php print_content($post->post_content); ?></a></p>
 							</div>
 							<div class="category_boerd_author">
-								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> | <?=get_writer_name()?>기자</p>
+								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> | <?=get_writer_name()?></p>
 								<!-- <p> 2018 5월 21일 | 최승혁기자 </p> -->
 							</div>
 						</div>
@@ -59,68 +59,9 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="sidebar_place">
-					<div class="sidebar_banner">
-						<div class="Banner_station Bannerstyle_basic">
-							<div class="Banner_rail">
-								<div class="Train_1 Train">
 
-								</div>
-								<div class="Train_2 Train">
+					<?php get_template_part('sidebar_banner'); ?>
 
-								</div>
-								<div class="Train_3 Train">
-
-								</div>
-								<div class="Train_4 Train">
-
-								</div>
-								<div class="Train_5 Train">
-
-								</div>
-
-							</div>
-							<div class="text_rail">
-								<div class="coach">
-									<p>반응형 배너 테스트입니다.</p>
-								</div>
-								<div class="coach">
-									<p>2</p>
-								</div>
-								<div class="coach">
-									<p>3</p>
-								</div>
-								<div class="coach">
-									<p>4</p>
-								</div>
-								<div class="coach">
-									<p>5</p>
-								</div>
-
-							</div>
-							<div class="banner_Layer_1">
-								<div class="move_button">
-									<div class="button_left">
-
-									</div>
-									<div class="button_right">
-
-									</div>
-								</div>
-								<div class="call_button">
-									<div class="call_button_1">
-									</div>
-									<div class="call_button_2">
-									</div>
-									<div class="call_button_3">
-									</div>
-									<div class="call_button_4">
-									</div>
-									<div class="call_button_5">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="PopularNews">
 						<?php get_template_part('hot'); ?>
 					</div>

@@ -11,7 +11,7 @@ get_header(); ?>
 				<?php
 				$posts_headline1 = get_posts(array('meta_key' => 'headline', 'meta_value' => 1, 'orderby' => 'meta_value', 'posts_per_page' => 1));
 				// var_dump($posts_headline1); die;
-				$posts_headline2 = get_posts(array('meta_key' => 'headline', 'meta_value' => 2));
+				$posts_headline2 = get_posts(array('meta_key' => 'headline', 'meta_value' => 2, 'posts_per_page' => 2));
 				// $posts_headline = array_merge($posts_headline1, $posts_headline2);
 				// var_dump($posts_headline); die;
 				$post = array_pop($posts_headline1);
@@ -37,7 +37,11 @@ get_header(); ?>
 				<?php
 				// 헤드라인 2~3번째
 				foreach($posts_headline2 as $post) {
-					$post_banner_img = get_featured_image($post->ID);?>
+					$post_banner_img = get_featured_image($post->ID);
+					$short_title = get_post_meta($post->ID, 'short_title', true);
+					if(strlen($short_title) > 0) $title = $short_title;
+					else $title = $post->post_title;
+					?>
 			        <div class="newspaper_PR_mainbanner_element">
 			          <div class="newspaper_PR_mainbanner_summary">
 			            <div class="newspaper_PR_mainbanner_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
@@ -45,7 +49,7 @@ get_header(); ?>
 
 									<div class="newspaper_PR_mainbanner_sort">
 										<div class="newspaper_PR_mainbanner_title">
-											<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
+											<a href="<?php the_permalink();?>"><?=$title?></a>
 										</div>
 										<div class="newspaper_PR_mainbanner_subtitle">
 											<a href="<?php the_permalink();?>"><?=print_string(get_post_meta($post->ID, 'subtitle', true), 72)?></a>
@@ -56,12 +60,15 @@ get_header(); ?>
 									</div><!-- end of sort -->
 								</div><!-- end of summary-->
 						</div><!-- end of element -->
+
 					<?php	} ?>
 				</div>
-			</div>
+	    </div>
 	<!-- 배너 종료 -->
 			<div class="middle_img_banner">
-				<img src="img/imgbannertest.png">
+				<?php $themepath = get_stylesheet_directory_uri(); ?>
+				<a href="http://제7회대한민국도시농업박람회.com/"><img border="0" style="width: 100%" src="<?=$themepath?>/img/imgbanner.jpg"></a>
+				<!-- <img src="img/imgbannertest.png"> -->
 			</div>
 	<!-- 컨텐츠 영역 -->
 			<div class="contents_place">
@@ -100,8 +107,7 @@ get_header(); ?>
 					</div>
 					<div class="imgboder_col6">
 						<?php
-						$posts_img1 = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 1, 'posts_per_page' => 3));
-						$posts_img2 = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 2, 'posts_per_page' => 3));
+						$posts_img1 = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 1, 'posts_per_page' => 6));
 
 						foreach($posts_img1 as $post) {
 							$post_banner_img = get_featured_image($post->ID); ?>
@@ -115,7 +121,7 @@ get_header(); ?>
 							</div>
 						<?php } ?>
 
-						<?php foreach($posts_img2 as $post) {
+						<?php /*foreach($posts_img2 as $post) {
 							$post_banner_img = get_featured_image($post->ID);  ?>
 							<div class="imgboder_<?=$i?>">
 
@@ -126,7 +132,7 @@ get_header(); ?>
 									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 								</div>
 							</div>
-						<?php } ?>
+						<?php } */ ?>
 					</div>
 				</div>
 				<div class="sidebar_place">
@@ -136,7 +142,11 @@ get_header(); ?>
 						</div>
 						<?php
 						$category_id = 4; // 농사정보
-						$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 1));
+						// $posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 1));
+						$posts_seoul = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 2, 'posts_per_page' => 1));
+						// $posts_seoul = get_posts(array('meta_key' => 'flavor', 'meta_value' => '1'));
+						// var_dump($posts_seoul);
+
 						foreach($posts_seoul as $post) {
 							$post_banner_img = get_featured_image($post->ID); ?>
 							<div class="sidebar_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">

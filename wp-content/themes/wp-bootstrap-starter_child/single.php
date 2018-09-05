@@ -33,13 +33,14 @@ $post_categories = wp_get_post_categories( $post->ID );
 							</div>
 							<div class="post_info">
 								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> |
-									<?=get_writer_name()?> 기자</p>
+									<?=get_writer_name()?></p>
 							</div>
 						</div>
 					</div>
 					<div class="post_contents">
 						<p><?php print_content(); ?></p>
-						<p><?=get_the_author_meta('display_name', $post->post_author)?> 기자 www@naver.com <br>저작권자 서울도시농업 e소식
+						<p><?php //=get_writer_name()?> 
+							<span class="small">저작권자 서울도시농업 e소식, 무단 전제 및 재배포 금지</span>
 						</p>
 					</div>
 
