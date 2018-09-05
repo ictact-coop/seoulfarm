@@ -29,18 +29,16 @@ $post_categories = wp_get_post_categories( $post->ID );
 								<h3><?=$post->post_title?></h3>
 							</div>
 							<div class="post_title_sub">
-								<h4>서울 농부들의 시민축제 작물 시들어 아쉬움</h4>
+								<h4><?=get_post_meta($post->ID, 'subtitle', true)?></h4>
 							</div>
 							<div class="post_info">
 								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> |
-									<?php $author_name = get_post_meta($post->ID, 'writer_name', true);
-									if(!isset($author_name)) $author_name = get_the_author_meta('display_name', $post->post_author);?>
-									<?=$author_name?> 기자</p>
+									<?=get_writer_name()?> 기자</p>
 							</div>
 						</div>
 					</div>
 					<div class="post_contents">
-						<p><?=nl2br($post->post_content)?></p>
+						<p><?php print_content(); ?></p>
 						<p><?=get_the_author_meta('display_name', $post->post_author)?> 기자 www@naver.com <br>저작권자 서울도시농업 e소식
 						</p>
 					</div>

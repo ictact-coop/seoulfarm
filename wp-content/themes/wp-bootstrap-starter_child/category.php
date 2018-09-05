@@ -31,8 +31,7 @@ get_header(); ?>
 
 				<?php
 				foreach($posts as $post) {
-					$post_banner_img = get_featured_image($post->ID);
-					// var_dump($post);?>
+					$post_banner_img = get_featured_image($post->ID); ?>
 					<div class="category_boerd">
 						<div class="category_boerd_img" style="background-image: url(<?=$post_banner_img?>);">
 
@@ -42,11 +41,10 @@ get_header(); ?>
 								<a href="<?php the_permalink();?>"><?=$post->post_title?></a>
 							</div>
 							<div class="category_boerd_text">
-								<!-- <p> 직, 심지어 두 권의 책을 요구, 더 많은 것이다. 이들에 대한 노동 이들, 우리가 말할 익숙한은 개를 가지고있다. 그녀는 그것의 일부입니다. 그것은 주말에 의해 mazim.Unusual 힘을 계속 복잡한 나라가 될 것입니다. 그들이 그것을 욕망, 어려움, 꿀의 revilers에 다른 구이된다. 유사한의 축구 호스트는 심지어 이들과 바르게 signiferumque 것을하지 있습니다. 이 즐거운, 또는 전진 패스에서 모든 곳에서 오랫동안 두려워하지만, 우리의 작은 두. 또는 무료 mucius은 게임이 쓸 수도 들어 있기 때문에 배웠습니다. 젊은 남자가, 그 첫 번째 순서의 작가, 어떤 위험을 보여 주었다 그가 그들을했다 때. 조직 찾을 할 수 없습니다. 안티 오페의 슬픔을 처리 한 경우. 분산 할 수있는 제 있도록 필수적인 가용성 읽기는 주문 축구에 </p> -->
 								<p><?php print_content($post->post_content); ?></p>
 							</div>
 							<div class="category_boerd_author">
-								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> | <?=get_the_author_meta('display_name', $post->post_author)?>기자</p>
+								<p><?=date('Y년 n월 j일', strtotime($post->post_date))?> | <?=get_writer_name()?>기자</p>
 								<!-- <p> 2018 5월 21일 | 최승혁기자 </p> -->
 							</div>
 						</div>
@@ -58,12 +56,6 @@ get_header(); ?>
 						<?php the_posts_pagination(); ?>
 						<!-- <div class="nav-previous alignleft"><?php next_posts_link( '다음' ); ?></div>
 						<div class="nav-next alignright"><?php previous_posts_link( '이전' ); ?></div> -->
-
-						<!--<p><<</p>
-						<?php for ($i = 1; $i <= 5 ; $i++) { ?>
-							<p><?=$i?></p>
-						<?php	} ?>
-						<p>>></p>-->
 					</div>
 				</div>
 				<div class="sidebar_place">

@@ -9,51 +9,56 @@ get_header(); ?>
 		<main id="main" class="site-main" role="main">
 			<div class="newspaper_PR_mainbanner">
 				<?php
-				$posts_headline = get_posts(array('meta_key' => 'post_headline', 'orderby' => 'meta_value', 'posts_per_page' => 3));
-				$headline_number = 1;
-				foreach($posts_headline as $post) {
-					$post_banner_img = get_featured_image($post->ID);
+				$posts_headline1 = get_posts(array('meta_key' => 'headline', 'meta_value' => 1, 'orderby' => 'meta_value', 'posts_per_page' => 1));
+				// var_dump($posts_headline1); die;
+				$posts_headline2 = get_posts(array('meta_key' => 'headline', 'meta_value' => 2));
+				// $posts_headline = array_merge($posts_headline1, $posts_headline2);
+				// var_dump($posts_headline); die;
+				$post = array_pop($posts_headline1);
+				$post_banner_img = get_featured_image($post->ID);
+				?>
+				<div class="newspaper_PR_mainbanner_big">
+					<div class="newspaper_PR_mainbanner_element">
+						<div class="newspaper_PR_mainbanner_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
+						</div>
+						<div class="newspaper_PR_mainbanner_title">
+							<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
+						</div>
+						<div class="newspaper_PR_mainbanner_subtitle">
+							<a href="<?php the_permalink();?>"><?=get_post_meta($post->ID, 'subtitle', true)?></a>
+						</div>
+						<div class="newspaper_PR_mainbanner_text">
+							<a href="<?php the_permalink();?>"><?php print_content($post->post_content, array('cut' => 240)); ?></a>
+						</div>
+					</div>
+				</div>
 
-					// var_dump($post);
-					if($headline_number == 1) { ?>
-						<div class="newspaper_PR_mainbanner_big">
-							<div class="newspaper_PR_mainbanner_element">
-			          <div class="newspaper_PR_mainbanner_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
-			          </div>
-							<?php
-					} else { // 헤드라인 2~3번째
-						if($headline_number == 2) { ?>
-							<div class="newspaper_PR_mainbanner_small"><?php
-						} ?>
+				<div class="newspaper_PR_mainbanner_small">
+				<?php
+				// 헤드라인 2~3번째
+				foreach($posts_headline2 as $post) {
+					$post_banner_img = get_featured_image($post->ID);?>
 			        <div class="newspaper_PR_mainbanner_element">
 			          <div class="newspaper_PR_mainbanner_summary">
 			            <div class="newspaper_PR_mainbanner_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
 			            </div>
+
 									<div class="newspaper_PR_mainbanner_sort">
-					<?php } ?>
-									<div class="newspaper_PR_mainbanner_title">
-										<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
-									</div>
-									<div class="newspaper_PR_mainbanner_subtitle">
-										<a href="<?php the_permalink();?>"><?=get_post_meta($post->ID, 'subtitle', true)?></a>
-									</div>
-									<div class="newspaper_PR_mainbanner_text">
-										<a href="<?php the_permalink();?>"><?php print_content($post->post_content, 130); ?></a>
-									</div>
-								<?php if($headline_number > 1) { ?>
-								</div>
-								<?php if($headline_number == 3) { // end of small?>
-								</div>
-								<?php
-								}
-							} ?>
-						</div>
-					</div>
-					<?php
-					$headline_number++;
-				}
-				?>
-	    </div>
+										<div class="newspaper_PR_mainbanner_title">
+											<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
+										</div>
+										<div class="newspaper_PR_mainbanner_subtitle">
+											<a href="<?php the_permalink();?>"><?=print_string(get_post_meta($post->ID, 'subtitle', true), 72)?></a>
+										</div>
+										<div class="newspaper_PR_mainbanner_text">
+											<a href="<?php the_permalink();?>"><?php print_content($post->post_content, array('cut' => 130)); ?></a>
+										</div>
+									</div><!-- end of sort -->
+								</div><!-- end of summary-->
+						</div><!-- end of element -->
+					<?php	} ?>
+				</div>
+			</div>
 	<!-- 배너 종료 -->
 			<div class="middle_img_banner">
 				<img src="img/imgbannertest.png">
@@ -99,8 +104,7 @@ get_header(); ?>
 						$posts_img2 = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 2, 'posts_per_page' => 3));
 
 						foreach($posts_img1 as $post) {
-							$post_banner_img = get_featured_image($post->ID);
-							// $post_banner_img2 = 'http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg'; ?>
+							$post_banner_img = get_featured_image($post->ID); ?>
 							<div class="imgboder_<?=$i?>">
 								<div class="imgboder_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
 
@@ -112,8 +116,7 @@ get_header(); ?>
 						<?php } ?>
 
 						<?php foreach($posts_img2 as $post) {
-							$post_banner_img = get_featured_image($post->ID);
-							// $post_banner_img2 = 'http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg'; ?>
+							$post_banner_img = get_featured_image($post->ID);  ?>
 							<div class="imgboder_<?=$i?>">
 
 								<div class="imgboder_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
@@ -123,17 +126,7 @@ get_header(); ?>
 									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 								</div>
 							</div>
-						<?php }
-						/*for ($i = 0; $i < 6; $i++) {
-							echo '<div class="imgboder_',$i,'">
-										<div class="imgboder_img" style="background-image: url(http://yori.hansalim.or.kr/data/ing/20140702_506_4.jpg);">
-
-										</div>
-										<div class="imgboder_title">
-											텍스트였습니다. 5 세기뿐만 아니라 전자 조판으로 도약했으며, 본질적으로 변하지 않았습니다
-										</div>
-									</div>';
-						}*/ ?>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="sidebar_place">
@@ -145,22 +138,17 @@ get_header(); ?>
 						$category_id = 4; // 농사정보
 						$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 1));
 						foreach($posts_seoul as $post) {
-							$post_banner_img = get_featured_image($post->ID);
-
-							// var_dump($post);?>
+							$post_banner_img = get_featured_image($post->ID); ?>
 							<div class="sidebar_img" data-url="<?php the_permalink(); ?>" style="background-image: url(<?=$post_banner_img?>);">
 							</div>
 							<div class="sidebar_title">
-								<!-- 도시농업의 멋 두줄 씩 나오게 되면 이렇게 보입니다. -->
 								<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
 							</div>
 							<div class="sidebar_text">
-								<?php print_content(); ?>
-								<!-- 하되 거선의 그것을 열매를 꽃이 황금시대다. 꽃이 무엇을 만천하의 가장 무언가 뭐지 -->
+								<a href="<?php the_permalink();?>"><?php print_content($post->post_content, array('cut' => 145)); ?></a>
 							</div>
 							<div class="sidebar_writer">
-								-<?=get_the_author_meta('display_name', $post->post_author)?>
-								<!-- -최승혁 -->
+								-<?=get_writer_name()?>
 							</div>
 						<?php } ?>
 

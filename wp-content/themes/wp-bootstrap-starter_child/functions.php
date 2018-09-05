@@ -2,7 +2,8 @@
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
     // wp_enqueue_style( 'child-style', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css' );
-    wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( 'parent-style' ) );
+    // wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( 'parent-style' ) );
+    wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/mystyle.css', array( 'wp-bootstrap-starter-bootstrap-css' ), '4.9.9' );
     // wp_enqueue_script( 'child-style','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js', array(), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
@@ -61,23 +62,25 @@ function posts_custom_column_views($column_name, $id) {
 
 // 헤드라인 노출 여부 표시 위한 함수
 function getHeadline($postID) {
-    $count_key = 'post_headline';
+    $count_key = 'headline';
     $headlined = get_post_meta($postID, $count_key, true);
     if($headlined == '') {
         delete_post_meta($postID, $count_key);
         add_post_meta($postID, $count_key, '0');
         return "0";
+    } else if (is_array($headlined)) {
+        return $headlined[0];
     }
     return $headlined;
 }
 
 function posts_column_headline($defaults) {
-  $defaults['post_headline'] = '헤드라인';
+  $defaults['headline'] = '헤드라인';
   return $defaults;
 }
 
 function posts_custom_column_headline($column_name, $id) {
-  if($column_name === 'post_headline'){
+  if($column_name === 'headline'){
     echo getHeadline(get_the_ID());
   }
 }
@@ -120,9 +123,32 @@ function get_featured_image($post_id) {
   return $post_banner_img;
 }
 
-function print_content($content = '', $cut = 0) {
+// 첫 페이지와 사이드바 등에서 콘텐츠 일부 표시
+function print_content($content = '', $option = array()) {
   global $post;
+  if(is_array($option) && !empty($option)) extract($option);
+
   if($content == '') $content = $post->post_content;
-  if($cut > 0) $content = mb_strcut($content, 0, $cut);
-  echo nl2br(strip_tags($content));
+  $content = do_shortcode($content);
+
+  if(!is_single()) $content = strip_tags($content);
+  else $content = nl2br($content);
+  if(isset($cut) && $cut > 0) $content = mb_strcut($content, 0, $cut).'...';
+
+  echo $content;
+}
+
+function print_string($string, $cut = 0) {
+  // echo strlen($string);
+  if($cut > 0 && strlen($string) > $cut) {
+    $string = mb_strcut($string, 0, $cut).'...';
+  }
+  echo $string;
+}
+
+function get_writer_name() {
+  global $post;
+  $author_name = get_post_meta($post->ID, 'writer_name', true);
+  if(!isset($author_name) || $author_name == '') $author_name = get_the_author_meta('display_name', $post->post_author);
+  return $author_name;
 }
