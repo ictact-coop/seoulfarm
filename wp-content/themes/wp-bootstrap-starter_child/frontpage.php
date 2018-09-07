@@ -10,10 +10,7 @@ get_header(); ?>
 			<div class="newspaper_PR_mainbanner">
 				<?php
 				$posts_headline1 = get_posts(array('meta_key' => 'headline', 'meta_value' => 1, 'orderby' => 'meta_value', 'posts_per_page' => 1));
-				// var_dump($posts_headline1); die;
 				$posts_headline2 = get_posts(array('meta_key' => 'headline', 'meta_value' => 2, 'posts_per_page' => 2));
-				// $posts_headline = array_merge($posts_headline1, $posts_headline2);
-				// var_dump($posts_headline); die;
 				$post = array_pop($posts_headline1);
 				$post_banner_img = get_featured_image($post->ID);
 				?>
@@ -38,9 +35,7 @@ get_header(); ?>
 				// 헤드라인 2~3번째
 				foreach($posts_headline2 as $post) {
 					$post_banner_img = get_featured_image($post->ID);
-					$short_title = get_post_meta($post->ID, 'short_title', true);
-					if(strlen($short_title) > 0) $title = $short_title;
-					else $title = $post->post_title;
+					$title = get_short_title();
 					?>
 			        <div class="newspaper_PR_mainbanner_element">
 			          <div class="newspaper_PR_mainbanner_summary">
@@ -55,7 +50,7 @@ get_header(); ?>
 											<a href="<?php the_permalink();?>"><?=print_string(get_post_meta($post->ID, 'subtitle', true), 72)?></a>
 										</div>
 										<div class="newspaper_PR_mainbanner_text">
-											<a href="<?php the_permalink();?>"><?php print_content($post->post_content, array('cut' => 130)); ?></a>
+											<a href="<?php the_permalink();?>"><?php print_content($post->post_content, array('cut' => 128)); ?></a>
 										</div>
 									</div><!-- end of sort -->
 								</div><!-- end of summary-->
@@ -67,7 +62,7 @@ get_header(); ?>
 	<!-- 배너 종료 -->
 			<div class="middle_img_banner">
 				<?php $themepath = get_stylesheet_directory_uri(); ?>
-				<a href="http://제7회대한민국도시농업박람회.com/"><img border="0" style="width: 100%" src="<?=$themepath?>/img/imgbanner.jpg"></a>
+				<a href="http://제7회대한민국도시농업박람회.com/" target="_blank"><img border="0" style="width: 100%" src="<?=$themepath?>/img/imgbanner2.jpg"></a>
 				<!-- <img src="img/imgbannertest.png"> -->
 			</div>
 	<!-- 컨텐츠 영역 -->
@@ -83,8 +78,9 @@ get_header(); ?>
 								$category_id = 7;
 								$posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 5)); ?>
 								<ul>
-								<?php foreach($posts_seoul as $post) { ?>
-									<li><a href="<?php the_permalink();?>"><?php the_title(); ?></a></li>
+								<?php foreach($posts_seoul as $post) {
+									$title = get_short_title(); ?>
+									<li><a href="<?php the_permalink();?>"><?=print_string($title, 62)?></a></li>
 								<?php } ?>
 								</ul>
 							</div>
@@ -98,8 +94,9 @@ get_header(); ?>
 								$category_id = 8;
 								$posts_other = get_posts(array('category' => $category_id, 'posts_per_page' => 5));?>
 								<ul>
-								<?php foreach($posts_other as $post) { ?>
-									<li><a href="<?php the_permalink();?>"><?php the_title(); ?></a></li>
+								<?php foreach($posts_other as $post) {
+									$title = get_short_title(); ?>
+									<li><a href="<?php the_permalink();?>"><?=print_string($title, 62)?></a></li>
 								<?php } ?>
 								</ul>
 							</div>
@@ -141,11 +138,7 @@ get_header(); ?>
 							도시농업의 멋
 						</div>
 						<?php
-						$category_id = 4; // 농사정보
-						// $posts_seoul = get_posts(array('category' => $category_id, 'posts_per_page' => 1));
 						$posts_seoul = get_posts(array('meta_key' => 'frontpage_news_major', 'meta_value' => 2, 'posts_per_page' => 1));
-						// $posts_seoul = get_posts(array('meta_key' => 'flavor', 'meta_value' => '1'));
-						// var_dump($posts_seoul);
 
 						foreach($posts_seoul as $post) {
 							$post_banner_img = get_featured_image($post->ID); ?>

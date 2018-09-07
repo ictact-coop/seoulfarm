@@ -14,13 +14,16 @@
 			</div><!-- .row -->
 		</div><!-- .container -->
 	</div><!-- #content -->
-    <?php get_template_part( 'footer-widget' ); ?>
+    <?php //get_template_part( 'footer-widget' ); ?>
 	<footer id="colophon" class="site-footer <?php echo wp_bootstrap_starter_bg_class(); ?>" role="contentinfo">
 		<div class="container-fluid p-3 p-md-5">
             <div class="site-info">
-                &copy; <?php echo date('Y'); ?> <?php echo '<a href="'.home_url().'">'.get_bloginfo('name').'</a>'; ?>
-                <span class="sep"> | </span>
-                <a class="credits" href="https://afterimagedesigns.com/wp-bootstrap-starter/" target="_blank" title="Wordpress Technical Support" alt="Bootstrap Wordpress Theme"><?php echo esc_html__('Bootstrap Wordpress Theme','wp-bootstrap-starter'); ?></a>
+							<p>발행 : 서울도시농업시민협의회 <span class="sep"> | </span>
+ 								발행인 : 조은하 서울특별시 노원구 동일로 192나길 16-4, 401호 <span class="sep"> | </span>
+								E-mail  seouldonog@gmail.com</p>
+                &copy; <?php echo date('Y'); ?> <?php echo '<a href="'.home_url().'">'.get_bloginfo('name').'</a>'; ?> all rights reserved
+                <!--span class="sep"> | </span>
+                <a class="credits" href="https://afterimagedesigns.com/wp-bootstrap-starter/" target="_blank" title="Wordpress Technical Support" alt="Bootstrap Wordpress Theme"><?php echo esc_html__('Bootstrap Wordpress Theme','wp-bootstrap-starter'); ?></a-->
 
             </div><!-- close .site-info -->
 		</div>
@@ -92,6 +95,10 @@
 				clearInterval(myVar);
 				 myVar = setInterval(railTimer, 3000);
 			});
+
+		/*$('.carousel').carousel({
+		  interval: 2000
+		});*/
 
 		$('.imgboder_img, .category_boerd_img, .newspaper_PR_mainbanner_img, .sidebar_img').on('click', function() {
 			var url = '';

@@ -1547,6 +1547,7 @@ background-color: #FaFaFa;
 .banner_Layer_1{
   width: 100%;
   height: 100%;
+  /* height: 90%; */
 
   position: relative;
   z-index: 10;

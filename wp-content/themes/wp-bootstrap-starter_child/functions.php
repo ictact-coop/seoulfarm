@@ -177,3 +177,11 @@ function my_format_TinyMCE( $in ) {
 	return $in;
 }
 add_filter( 'tiny_mce_before_init', 'my_format_TinyMCE' );
+
+function get_short_title($title = '') {
+  global $post;
+  $short_title = get_post_meta($post->ID, 'short_title', true);
+  if(strlen($short_title) > 0) $title = $short_title;
+  else $title = $post->post_title;
+  return $title;
+}

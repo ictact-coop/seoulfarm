@@ -18,14 +18,25 @@ get_header(); ?>
 				<div class="category_boerd_place">
 
 				<?php $category = get_the_category(); // 현재 카테고리를 가져옴
+				//var_dump($wp->request);
+
 				$category_id = $category[0]->cat_ID; // 카테고리 ID (숫자)
 				$category_name = $category[0]->name; // 카테고리 이름
 				$category_count = $category[0]->category_count;
+				$category_count_string = '<small>전체 ('.$category_count.')건</small>';
+				// 임시로
+				$req = explode('/', urldecode($wp->request));
+				if(count($req) == 2 && $req[1] == '소식') {
+					$category_name = '전체 소식';
+					$category_count_string = '';
+					if(function_exists('wp_count_term')) var_dump(wp_count_term(urlencode('소식')));
+				}
+
 				$posts = get_posts(array('category' => $category_id, 'posts_per_page' => 5)); // 현재 카테고리에 해당하는 포스트
 				?>
 
 				<div class="category_upper">
-					<div class="category_title"><?=$category_name?> <small>전체(<?=$category_count?>)건</small></div>
+					<div class="category_title"><?=$category_name?> <?=$category_count_string?> </div>
 					<!-- <div class="writebutton">글쓰기</div> -->
 				</div>
 

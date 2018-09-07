@@ -25,19 +25,7 @@ if ( post_password_required() ) {
     독자 의견 | 댓글 <?php comments_number('없음', '1개', '%개'); ?>
   </div>
   <div class="comment_form_tool">
-    <!--<div class="comment_form_user">
-      <p>작성자</p>
-      <div class="comment_form_name">
-        <!- - 댓글네임폼 - ->
-      </div>
-      <p>비밀번호</p>
-      <div class="comment_form_password">
-        <!- - 댓글 패스워드폼 - ->
-      </div>
-    </div>
-    <div class="comment_button">
-      등록
-    </div>-->
+
   </div>
 
   <?php // 덧글 입력 폼  ?>

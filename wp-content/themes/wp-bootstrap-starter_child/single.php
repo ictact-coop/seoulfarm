@@ -51,8 +51,6 @@ $post_categories = wp_get_post_categories( $post->ID );
 					endif;
 					?>
 			   </div>
-			 <!--</div>test-->
-			 <!-- 2018년 8월 27일 오후 7시 25분 업데이트 합니다. 이거 안 보이면 다 꽝임!! -->
 		</div>
 		</main><!-- #main -->
 	</section><!-- #primary -->
