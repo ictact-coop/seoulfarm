@@ -7,6 +7,7 @@
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 @import url('https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/stylesheets/NotoSansKR-Hestia.css');
 /* 구글 왭폰트 dohyeon폰트 로딩 */
+
 /* 이부분은 총괄 컨테이너의 부분입니다 */
 /* *****************************/
 /* 레이아웃 */
@@ -1728,5 +1729,12 @@ a:hover{
 @media screen and (-ms-high-contrast: none) {
 	.imgboder_col6{
 		margin-top: 50px;
+	}
+}
+
+/*ie popularnews*/
+@media screen and (-ms-high-contrast: none) {
+	.PopularNews_boder p{
+		line-height: 1.2;
 	}
 }
