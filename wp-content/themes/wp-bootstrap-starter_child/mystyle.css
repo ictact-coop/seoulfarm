@@ -1735,6 +1735,6 @@ a:hover{
 /*ie popularnews*/
 @media screen and (-ms-high-contrast: none) {
 	.PopularNews_boder p{
-		line-height: 1.2;
+		line-height: 1.4;
 	}
 }
